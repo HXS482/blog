@@ -30,6 +30,14 @@ But I'm equally fascinated by software. The boundary between hardware and code i
 
 A retro-styled personal space. No analytics. No comments. No algorithm. Just words on a CRT — the way computing was meant to feel.
 
+## This Blog
+
+A retro-styled personal space. No analytics. No comments. No algorithm. Just words on a CRT — the way computing was meant to feel.
+
+Live at: [hxs482.github.io/blog](https://hxs482.github.io/blog/)
+
+Source: [github.com/HXS482/blog](https://github.com/HXS482/blog)
+
 ## Contact
 
 Find me on [GitHub](https://github.com/HXS482).
