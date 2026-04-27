@@ -1,0 +1,33 @@
+name: Validate & Deploy
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate posts.json is valid JSON
+        run: |
+          python3 -c "import json; data=json.load(open('posts.json')); print(f'{len(data)} posts OK')"
+
+      - name: Check all post slugs have corresponding .md files
+        run: |
+          python3 -c "
+          import json, os
+          data = json.load(open('posts.json'))
+          for post in data:
+              path = f'posts/{post[\"slug\"]}.md'
+              assert os.path.exists(path), f'MISSING: {path}'
+              print(f'  ✓ {path}')
+          print('All posts verified.')
+          "
+
+      - name: Check no broken links in HTML
+        run: |
+          grep -q 'css/blog.css' index.html && echo '✓ css/blog.css linked' || (echo '✗ css/blog.css missing' && exit 1)
+          grep -q 'js/blog.js' index.html && echo '✓ js/blog.js linked' || (echo '✗ js/blog.js missing' && exit 1)
+          grep -q 'marked.min.js' index.html && echo '✓ marked.js CDN linked' || (echo '✗ marked.js missing' && exit 1)
